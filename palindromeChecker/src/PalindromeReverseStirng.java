@@ -1,47 +1,37 @@
 import java.util.Scanner;
+import java.util.Stack;
  class PalindromeCharArray{
+     public static void main(String[] args) {
 
-    // Method to check palindrome using char array and two-pointer technique
-    public static boolean isPalindrome(String input) {
+         Scanner scanner = new Scanner(System.in);
+         Stack<Character> stack = new Stack<>();
 
-        // Convert string to character array
-        char[] characters = input.toCharArray();
+         System.out.println("=== Stack-Based Palindrome Checker ===");
+         System.out.print("Enter a string: ");
+         String input = scanner.nextLine();
 
-        // Initialize two pointers
-        int start = 0;
-        int end = characters.length - 1;
+         // Convert to lowercase and remove spaces (optional improvement)
+         String processedInput = input.replaceAll("\\s+", "").toLowerCase();
 
-        // Compare characters from both ends
-        while (start < end) {
+         // Push each character into the stack
+         for (int i = 0; i < processedInput.length(); i++) {
+             stack.push(processedInput.charAt(i));
+         }
 
-            if (characters[start] != characters[end]) {
-                return false; // Not a palindrome
-            }
+         // Pop characters to form reversed string
+         String reversed = "";
+         while (!stack.isEmpty()) {
+             reversed += stack.pop();
+         }
 
-            start++;
-            end--;
-        }
+         // Compare original processed string with reversed string
+         if (processedInput.equals(reversed)) {
+             System.out.println("Result: The given string is a Palindrome.");
+         } else {
+             System.out.println("Result: The given string is NOT a Palindrome.");
+         }
 
-        return true; // It is a palindrome
-    }
+         scanner.close();
+     }
 
-    public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("=== UC4: Character Array Based Palindrome Check ===");
-        System.out.print("Enter a string: ");
-
-        String input = scanner.nextLine();
-
-        boolean result = isPalindrome(input);
-
-        if (result) {
-            System.out.println("Result: The given string is a Palindrome.");
-        } else {
-            System.out.println("Result: The given string is NOT a Palindrome.");
-        }
-
-        scanner.close();
-    }
 }
