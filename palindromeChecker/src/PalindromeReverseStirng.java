@@ -1,31 +1,45 @@
 import java.util.Scanner;
 import java.util.Stack;
- class PalindromeCharArray{
+import java.util.Queue;
+import java.util.LinkedList;
+ class PalindromeCharArray {
      public static void main(String[] args) {
 
-         Scanner scanner = new Scanner(System.in);
-         Stack<Character> stack = new Stack<>();
 
-         System.out.println("=== Stack-Based Palindrome Checker ===");
+         Scanner scanner = new Scanner(System.in);
+
+         Stack<Character> stack = new Stack<>();
+         Queue<Character> queue = new LinkedList<>();
+
+         System.out.println("=== Queue + Stack Based Palindrome Checker ===");
          System.out.print("Enter a string: ");
          String input = scanner.nextLine();
 
-         // Convert to lowercase and remove spaces (optional improvement)
+         // Process input (remove spaces and convert to lowercase)
          String processedInput = input.replaceAll("\\s+", "").toLowerCase();
 
-         // Push each character into the stack
+         // Enqueue and Push characters
          for (int i = 0; i < processedInput.length(); i++) {
-             stack.push(processedInput.charAt(i));
+             char ch = processedInput.charAt(i);
+             queue.add(ch);   // Enqueue (FIFO)
+             stack.push(ch);  // Push (LIFO)
          }
 
-         // Pop characters to form reversed string
-         String reversed = "";
-         while (!stack.isEmpty()) {
-             reversed += stack.pop();
+         boolean isPalindrome = true;
+
+         // Compare dequeue from queue and pop from stack
+         while (!queue.isEmpty()) {
+             char fromQueue = queue.remove();  // Dequeue
+             char fromStack = stack.pop();     // Pop
+
+             if (fromQueue != fromStack) {
+                 isPalindrome = false;
+                 break;
+             }
          }
 
-         // Compare original processed string with reversed string
-         if (processedInput.equals(reversed)) {
+         // Display result
+         if (isPalindrome) {
              System.out.println("Result: The given string is a Palindrome.");
          } else {
              System.out.println("Result: The given string is NOT a Palindrome.");
@@ -33,5 +47,5 @@ import java.util.Stack;
 
          scanner.close();
      }
+ }
 
-}
