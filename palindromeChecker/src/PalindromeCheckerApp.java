@@ -1,27 +1,53 @@
 import java.util.Scanner;
+import java.util.Stack;
+
+// Class that contains palindrome logic
+class PalindromeChecker {
+
+    // Method to check palindrome
+    public boolean checkPalindrome(String input) {
+
+        Stack<Character> stack = new Stack<>();
+
+        // Push characters into stack
+        for (int i = 0; i < input.length(); i++) {
+            stack.push(input.charAt(i));
+        }
+
+        // Build reversed string
+        String reversed = "";
+        while (!stack.isEmpty()) {
+            reversed = reversed + stack.pop();
+        }
+
+        // Compare original and reversed
+        if (input.equals(reversed)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
 public class PalindromeCheckerApp {
+
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        // Input from user
         System.out.print("Enter a string: ");
-        String originalString = scanner.nextLine();
+        String input = sc.nextLine();
 
-        String reversedString = "";
+        PalindromeChecker checker = new PalindromeChecker();
 
-        // Reverse string using for loop
-        for (int i = originalString.length() - 1; i >= 0; i--) {
-            reversedString = reversedString + originalString.charAt(i);
-        }
+        boolean result = checker.checkPalindrome(input);
 
-        // Compare original and reversed string
-        if (originalString.equals(reversedString)) {
-            System.out.println("The given string is a Palindrome.");
+        if (result) {
+            System.out.println("It is a Palindrome.");
         } else {
-            System.out.println("The given string is NOT a Palindrome.");
+            System.out.println("It is not a Palindrome.");
         }
 
-        scanner.close();
+        sc.close();
     }
 }
